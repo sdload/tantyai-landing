@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TantyAI – Customer Feedback Intelligence</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #111;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { text-decoration: none; }
+
+    /* ─── BANNER ─── */
+    .banner {
+      background: #FFDE59;
+      text-align: center;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #111;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 64px;
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: #111;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-btns { display: flex; gap: 10px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 26px;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      transition: opacity 0.15s, transform 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-yellow { background: #FFDE59; color: #111; }
+    .btn-dark   { background: #111;    color: #fff; }
+    .btn-lg {
+      padding: 14px 36px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center;
+      padding: 96px 24px 72px;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -0.035em;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      color: #888;
+      margin-bottom: 36px;
+    }
+
+    /* ─── HERO SCREENSHOT ─── */
+    .hero-img-wrap {
+      max-width: 1100px;
+      margin: 0 auto 112px;
+      padding: 0 48px;
+    }
+    .hero-img-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 60px rgba(0,0,0,0.10);
+      background: #fff;
+    }
+    .hero-img-card img { width: 100%; display: block; }
+
+    /* ─── PLACEHOLDER ─── */
+    .ph {
+      background: #f6f6f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-size: 13px;
+      gap: 10px;
+      min-height: 420px;
+    }
+    .ph.blue { background: #E9F0FF; }
+
+    /* ─── FEATURES ─── */
+    .features {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 112px;
+    }
+    .features-heading {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #111;
+      margin-bottom: 60px;
+      line-height: 1.2;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .feat-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      min-height: 380px;
+    }
+    .feat-card.flip {
+      grid-template-columns: 1fr 380px;
+    }
+    .feat-card.flip .feat-text { order: 2; }
+    .feat-card.flip .feat-img  { order: 1; }
+
+    .feat-text {
+      padding: 56px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .feat-text h3 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #111;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .feat-text p {
+      font-size: 16px;
+      color: #666;
+      line-height: 1.75;
+    }
+
+    .feat-img {
+      background: #E9F0FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      overflow: hidden;
+    }
+    .feat-img-inner {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+    .feat-img-inner img { width: 100%; display: block; }
+    .feat-img-inner .ph {
+      min-height: 260px;
+      background: #fff;
+    }
+
+    /* ─── TEAMS ─── */
+    .teams {
+      padding: 96px 48px;
+      text-align: center;
+      border-top: 1px solid #f0f0f0;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .teams h2 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #111;
+      margin-bottom: 64px;
+    }
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 52px 40px;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .role-item { display: flex; flex-direction: column; gap: 12px; }
+    .role-avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #f0f0f0;
+      display: flex; align-items: center; justify-content: center;
+      color: #555;
+      flex-shrink: 0;
+    }
+    .role-avatar svg { width: 26px; height: 26px; }
+    .role-item h4 { font-size: 16px; font-weight: 700; color: #111; }
+    .role-item p  { font-size: 14px; color: #666; line-height: 1.7; }
+
+    /* ─── CTA ─── */
+    .cta {
+      text-align: center;
+      padding: 96px 24px;
+      border-top: 1px solid #f0f0f0;
+    }
+    .cta h2 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111;
+      padding: 36px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .f-logo { font-size: 18px; font-weight: 700; color: #fff; }
+    .f-sub  { font-size: 13px; color: #666; margin-top: 5px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .soc {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 12px; font-weight: 700;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .soc:hover { background: rgba(255,255,255,0.2); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .hero h1 { font-size: 40px; }
+      .hero-img-wrap { padding: 0 24px; }
+      .features { padding: 0 24px 80px; }
+      .features-heading { font-size: 30px; }
+      .feat-card,
+      .feat-card.flip { grid-template-columns: 1fr; min-height: auto; }
+      .feat-card.flip .feat-text { order: 1; }
+      .feat-card.flip .feat-img  { order: 2; }
+      .feat-text { padding: 36px 32px; }
+      .feat-text h3 { font-size: 22px; }
+      .teams { padding: 64px 24px; }
+      .teams h2 { font-size: 30px; }
+      .roles-grid { grid-template-columns: 1fr 1fr; }
+      .cta h2 { font-size: 30px; }
+      footer { padding: 28px 24px; }
+    }
+    @media (max-width: 520px) {
+      .hero h1 { font-size: 30px; }
+      .roles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- BANNER -->
+<div class="banner">TantyAI is now in beta. Try it out.</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><img src="images/tanty_lg.png" alt="TantyAI" style="height: 36px; display: block;"></div>
+  <div class="nav-btns">
+    <a href="https://app.tantyai.com/signup" class="btn btn-yellow">Sign up</a>
+    <a href="https://app.tantyai.com"  class="btn btn-dark">Login</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Transform customer conversations<br>into actionable insights</h1>
+  <p>TantyAI is a customer feedback intelligence platform</p>
+  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg">Start free</a>
+</section>
+
+<!-- HERO SCREENSHOT -->
+<div class="hero-img-wrap">
+  <div class="hero-img-card">
+    <img src="images/insights_db_1.png" alt="TantyAI dashboard">
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <h2 class="features-heading">Everything you need to understand customers</h2>
+
+  <!-- Card 1: text left, screenshot right -->
+  <div class="feat-card">
+    <div class="feat-text">
+      <h3>Customer feedback</h3>
+      <p>Record and send video surveys to customers, or upload customer conversation files — video, audio, or transcripts — into one organised workspace.</p>
+    </div>
+    <div class="feat-img">
+      <div class="feat-img-inner">
+        <img src="images/pop_up_2.png" alt="Customer feedback">
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2: screenshot left, text right -->
+  <div class="feat-card flip">
+    <div class="feat-text">
+      <h3>Insights</h3>
+      <p>TantyAI turns customer feedback into actionable insights. It automatically extracts transcripts and generates an AI-powered insights dashboard with key themes, heat maps, takeaways, and more.</p>
+    </div>
+    <div class="feat-img">
+      <div class="feat-img-inner">
+        <img src="images/insights_db_2.png" alt="Insights">
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: text left, screenshot right -->
+  <div class="feat-card">
+    <div class="feat-text">
+      <h3>Board</h3>
+      <p>Collect the insights worth pursuing and move them onto your board, where you can organise, prioritise, and turn them into actionable work.</p>
+    </div>
+    <div class="feat-img">
+      <div class="feat-img-inner">
+        <img src="images/board.png" alt="Board">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILT FOR TEAMS -->
+<section class="teams">
+  <h2>Built for teams who listen</h2>
+  <div class="roles-grid">
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      </div>
+      <h4>Product managers</h4>
+      <p>Turn customer conversations into roadmap clarity.
+        Upload calls or send video surveys to uncover recurring requests and friction.</p>
+    </div>
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h4>Customer success</h4>
+      <p>Stay ahead of churn and dissatisfaction signals. Analyze recorded conversations or collect targeted feedback with video surveys.</p>
+    </div>
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <h4>Designers</h4>
+      <p>Design with real customer context.Review recorded conversations and survey feedback to spot friction.</p>
+    </div>
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      </div>
+      <h4>Sales</h4>
+      <p>Refine your pitch using conversation insights. Upload recorded sales calls to uncover objections and buying signals.</p>
+    </div>
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      </div>
+      <h4>Marketing</h4>
+      <p>Hear how customers describe your product. Analyze sales calls, interviews, and survey responses for insights.</p>
+    </div>
+
+    <div class="role-item">
+      <div class="role-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <h4>Customer support</h4>
+      <p>Identify recurring issues across customer conversations. Upload recorded calls or transcripts to detect common pain points.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2>Stop guessing what customers want</h2>
+  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg">Start free</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-logo">TantyAI</div>
+    <div class="f-sub">Make customer feedback actionable with AI.</div>
+  </div>
+  <div class="footer-socials">
+    <a href="#" class="soc" title="LinkedIn">in</a>
+    <a href="#" class="soc" title="X">&#120143;</a>
+  </div>
+</footer>
+
+</body>
+</html>
