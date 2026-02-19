@@ -20,8 +20,8 @@
 
     a { text-decoration: none; }
 
-    /* ─── MOBILE OVERLAY ─── */
-    #mobile-overlay {
+    /* ─── MOBILE POPUP (closable, opens when Start free is tapped) ─── */
+    #mobile-popup {
       display: none;
       position: fixed;
       top: 0; left: 0;
@@ -39,6 +39,7 @@
       max-width: 320px;
       width: 100%;
       text-align: center;
+      position: relative;
     }
     .mobile-icon {
       width: 60px; height: 60px;
@@ -60,6 +61,19 @@
       color: #666;
       line-height: 1.7;
     }
+    .close-btn {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #aaa;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      font-family: 'Inter', sans-serif;
+    }
+    .close-btn:hover { color: #111; }
 
     /* ─── BANNER ─── */
     .banner {
@@ -152,20 +166,6 @@
     }
     .hero-img-card img { width: 100%; display: block; }
 
-    /* ─── PLACEHOLDER ─── */
-    .ph {
-      background: #f6f6f6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-size: 13px;
-      gap: 10px;
-      min-height: 420px;
-    }
-    .ph.blue { background: #E9F0FF; }
-
     /* ─── FEATURES ─── */
     .features {
       max-width: 1100px;
@@ -236,10 +236,6 @@
       background: #fff;
     }
     .feat-img-inner img { width: 100%; display: block; }
-    .feat-img-inner .ph {
-      min-height: 260px;
-      background: #fff;
-    }
 
     /* ─── TEAMS ─── */
     .teams {
@@ -340,13 +336,14 @@
 </head>
 <body>
 
-<!-- MOBILE OVERLAY — only shows on phones/tablets -->
-<div id="mobile-overlay">
+<!-- MOBILE POPUP (closable, triggered by Start free buttons on mobile) -->
+<div id="mobile-popup">
   <div class="mobile-card">
+    <button class="close-btn" onclick="document.getElementById('mobile-popup').style.display='none'">&#215;</button>
     <div class="mobile-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
     </div>
-    <h2>Best on Desktop</h2>
+    <h2>Use on desktop</h2>
     <p>Visit <strong>tantyai.com</strong> from your desktop computer to get the best experience.</p>
   </div>
 </div>
@@ -357,7 +354,7 @@
 <!-- NAV -->
 <nav>
   <div class="logo"><img src="images/tanty_lg.png" alt="TantyAI" style="height: 36px; display: block;"></div>
-  <div class="nav-btns">
+  <div class="nav-btns" id="nav-btns">
     <a href="https://app.tantyai.com/signup" class="btn btn-yellow">Sign up</a>
     <a href="https://app.tantyai.com" class="btn btn-dark">Login</a>
   </div>
@@ -367,7 +364,7 @@
 <section class="hero">
   <h1>Transform customer conversations<br>into actionable insights</h1>
   <p>TantyAI is a customer feedback intelligence platform</p>
-  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg">Start free</a>
+  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg start-free-btn">Start free</a>
 </section>
 
 <!-- HERO SCREENSHOT -->
@@ -381,7 +378,6 @@
 <section class="features">
   <h2 class="features-heading">Everything you need to understand customers</h2>
 
-  <!-- Card 1: text left, screenshot right -->
   <div class="feat-card">
     <div class="feat-text">
       <h3>Customer feedback</h3>
@@ -394,7 +390,6 @@
     </div>
   </div>
 
-  <!-- Card 2: screenshot left, text right -->
   <div class="feat-card flip">
     <div class="feat-text">
       <h3>Insights</h3>
@@ -407,7 +402,6 @@
     </div>
   </div>
 
-  <!-- Card 3: text left, screenshot right -->
   <div class="feat-card">
     <div class="feat-text">
       <h3>Board</h3>
@@ -480,7 +474,7 @@
 <!-- CTA -->
 <section class="cta">
   <h2>Stop guessing what customers want</h2>
-  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg">Start free</a>
+  <a href="https://app.tantyai.com/signup" class="btn btn-yellow btn-lg start-free-btn">Start free</a>
 </section>
 
 <!-- FOOTER -->
@@ -496,10 +490,20 @@
 </footer>
 
 <script>
-  // Only show on actual mobile devices — not on resized desktop windows
   var isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
   if (isMobile) {
-    document.getElementById('mobile-overlay').style.display = 'flex';
+    // 1. Hide Sign up and Login buttons in nav
+    document.getElementById('nav-btns').style.display = 'none';
+
+    // 2. Make all Start free buttons open the popup instead of going to signup
+    var startFreeBtns = document.querySelectorAll('.start-free-btn');
+    startFreeBtns.forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('mobile-popup').style.display = 'flex';
+      });
+    });
   }
 </script>
 
